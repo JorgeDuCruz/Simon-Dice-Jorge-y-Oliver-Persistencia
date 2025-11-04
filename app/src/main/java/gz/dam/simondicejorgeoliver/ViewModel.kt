@@ -9,8 +9,17 @@ class ViewModel(){
 
     fun numeroRandom(){
         estadoActual.value = Estados.GENERANDO
-        Log.d("ViewModel","Estado generando")
+        Log.d("ViewModel","Estado Generando")
         numeroRandomGenerado.value = (0..3).random()
         Log.d("ViewModel","Número aleatorio generado: $numeroRandomGenerado")
+        actualizarNumero(numeroRandomGenerado.value)
+    }
+
+    fun actualizarNumero(numero:Int){
+        Log.d("ViewModel","Actualizando el numero de la clase Datos")
+        Datos.numero = numero
+        estadoActual.value = Estados.ADIVINANDO
+        Log.d("ViewModel","Estado Adivinando")
+
     }
 }
