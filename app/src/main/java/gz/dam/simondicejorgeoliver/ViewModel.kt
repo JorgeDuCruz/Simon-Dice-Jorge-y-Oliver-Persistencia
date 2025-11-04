@@ -31,9 +31,12 @@ class ViewModel(){
             true
         }else{
             Log.d("ViewModel","ERROR, HAS PERDIDO")
+            derrota()
             false
         }
     }
 
-
+    fun derrota(){
+        estadoActual.value = Estados.INICIO
+    }
 }
