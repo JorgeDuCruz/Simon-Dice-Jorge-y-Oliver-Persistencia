@@ -30,7 +30,7 @@ class ViewModel(){
             numeroRandom()
             true
         }else{
-            Log.d("ERROR, HAS PERDIDO")
+            Log.d("ViewModel","ERROR, HAS PERDIDO")
             false
         }
     }
