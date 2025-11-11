@@ -17,6 +17,8 @@ class MyViewModel(): ViewModel(){
     var posicion = 0
 
 
+    var posicion = 0
+
     fun numeroRandom(){
         estadoActual.value = Estados.GENERANDO
         Log.d("ViewModel","Estado Generando")
@@ -42,6 +44,7 @@ class MyViewModel(): ViewModel(){
                 cambiarRonda()
             }
             puntuacion.value = puntuacion.value.plus(1)
+
             true
         }else{
             Log.d("ViewModel","ERROR, HAS PERDIDO")
@@ -57,6 +60,7 @@ class MyViewModel(): ViewModel(){
     fun cambiarRonda(){
         posicion=0
         ronda.value = ronda.value?.plus(1)
+
         numeroRandom()
     }
 
@@ -69,5 +73,6 @@ class MyViewModel(): ViewModel(){
         ronda.value = 1
         estadoActual.value = Estados.INICIO
         Datos.numero = ArrayList()
+
     }
 }
