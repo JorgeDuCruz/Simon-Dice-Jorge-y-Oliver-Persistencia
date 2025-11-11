@@ -31,10 +31,11 @@ fun UI(viewModel: MyViewModel){
 @Composable
 fun Menu(viewModel: MyViewModel) {
     val puntuacionRecogida by viewModel.puntuacion.collectAsState()
+    val rondaRecogida by viewModel.ronda.collectAsState()
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
         Column (modifier = Modifier.padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-            Puntuacion(puntuacionRecogida)
+            Puntuacion(puntuacionRecogida,rondaRecogida)
             Botonera(viewModel)
             Boton_inicio(viewModel)
         }
@@ -44,7 +45,10 @@ fun Menu(viewModel: MyViewModel) {
 }
 
 @Composable
-fun Puntuacion(puntuacion: Int?){
+fun Puntuacion(puntuacion: Int?, ronda: Int?){
+    Text(
+        text = "Ronda: $ronda",
+    )
     Text(
         text = "Puntuación: $puntuacion",
         modifier = Modifier.padding(top = 100.dp)

@@ -3,7 +3,7 @@ package gz.dam.simondicejorgeoliver
 import androidx.compose.ui.graphics.Color
 
 object Datos {
-    var numero: ArrayList<Int> = ArrayList<Int>()
+    var numero: ArrayList<Int> = ArrayList()
 }
 
 enum class Colores(val color: Color, val txt: String) {
