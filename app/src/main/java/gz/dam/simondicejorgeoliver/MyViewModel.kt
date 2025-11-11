@@ -16,9 +16,6 @@ class MyViewModel(): ViewModel(){
 
     var posicion = 0
 
-
-    var posicion = 0
-
     fun numeroRandom(){
         estadoActual.value = Estados.GENERANDO
         Log.d("ViewModel","Estado Generando")
