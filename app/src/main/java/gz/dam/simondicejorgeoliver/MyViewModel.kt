@@ -8,7 +8,9 @@ class MyViewModel(): ViewModel(){
     val estadoActual: MutableStateFlow<Estados> = MutableStateFlow(Estados.INICIO)
     var numeroRandomGenerado = MutableStateFlow(0)
 
-    val puntuacion = MutableStateFlow<Int?>(0)
+    val puntuacion = MutableStateFlow<Int>(0)
+
+    val record = MutableStateFlow<Int>(0)
 
     var ronda = MutableStateFlow<Int?>(1)
 
@@ -39,7 +41,7 @@ class MyViewModel(): ViewModel(){
             if (Datos.numero.size == posicion) {
                 cambiarRonda()
             }
-            puntuacion.value = puntuacion.value?.plus(1)
+            puntuacion.value = puntuacion.value.plus(1)
             true
         }else{
             Log.d("ViewModel","ERROR, HAS PERDIDO")
@@ -59,7 +61,11 @@ class MyViewModel(): ViewModel(){
     }
 
     fun derrota(){
+        if (record.value < puntuacion.value){
+            record.value = puntuacion.value
+        }
         puntuacion.value = 0
+        posicion=0
         ronda.value = 1
         estadoActual.value = Estados.INICIO
         Datos.numero = ArrayList()
