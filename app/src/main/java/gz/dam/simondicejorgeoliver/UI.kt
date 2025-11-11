@@ -33,10 +33,12 @@ fun Menu(viewModel: MyViewModel) {
     val puntuacionRecogida by viewModel.puntuacion.collectAsState()
     val rondaRecogida by viewModel.ronda.collectAsState()
     val recordRecogida by viewModel.record.collectAsState()
+    val estado  by viewModel.estadoActual.collectAsState()
+
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
         Column (modifier = Modifier.padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-            Puntuacion(puntuacionRecogida,rondaRecogida,recordRecogida)
+            Puntuacion(puntuacionRecogida,rondaRecogida,recordRecogida, estado)
             Botonera(viewModel)
             Boton_inicio(viewModel)
         }
@@ -46,7 +48,10 @@ fun Menu(viewModel: MyViewModel) {
 }
 
 @Composable
-fun Puntuacion(puntuacion: Int?, ronda: Int?, record: Int){
+fun Puntuacion(puntuacion: Int?, ronda: Int?, record: Int, estado: Estados){
+    Text(
+        text = "Estado: $estado"
+    )
     Text(
         text = "Ronda: $ronda",
     )
