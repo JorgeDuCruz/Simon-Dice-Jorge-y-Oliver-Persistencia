@@ -1,8 +1,12 @@
 package gz.dam.simondicejorgeoliver
 
 import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 
 class MyViewModel(): ViewModel(){
     val estadoActual: MutableStateFlow<Estados> = MutableStateFlow(Estados.INICIO)
@@ -13,6 +17,8 @@ class MyViewModel(): ViewModel(){
     val record = MutableStateFlow<Int>(0)
 
     var ronda = MutableStateFlow<Int?>(1)
+    var botonPresionado = MutableStateFlow<Int?>(-1)
+
 
     var posicion = 0
 
@@ -52,6 +58,17 @@ class MyViewModel(): ViewModel(){
 
     fun mostrarSecuencia(secuencia: ArrayList<Int>){
         Log.d("ViewModel","Estado Adivinando, secuencia: $secuencia")
+        viewModelScope.launch {
+            for (boton in secuencia){
+                botonPresionado.value=boton
+                delay(800)
+            }
+        }
+    }
+
+    fun continuarSecuencia(){
+        botonPresionado.value=-1
+
     }
 
     fun cambiarRonda(){
