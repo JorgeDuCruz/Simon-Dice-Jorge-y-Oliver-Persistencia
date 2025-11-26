@@ -12,14 +12,19 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.delay
 
 
 @Composable
@@ -79,9 +84,27 @@ fun Botonera(viewModel: MyViewModel) {
 @Composable
 fun Boton(enum_color: Colores, viewModel: MyViewModel){
     val activo = viewModel.estadoActual.collectAsState().value
+    var _activo by remember { mutableStateOf( activo.boton_activo)}
+    val estado  by viewModel.botonPresionado.collectAsState()
+    var _color by remember { mutableStateOf(enum_color.color)}
+    LaunchedEffect(estado) {
+        Log.d("Debug","Cambie de estado ${enum_color.txt}")
+        if (estado==enum_color.ordinal) {
+
+            _color = enum_color.color.copy(alpha = 0.41f)
+            delay(400)
+            _color = enum_color.color
+
+            viewModel.continuarSecuencia()
+        }
+
+
+
+        Log.d("Debug","Cambie de estado ${enum_color.txt}")
+    }
     Button(
         enabled = activo.boton_activo,
-        colors = ButtonDefaults.buttonColors(enum_color.color),
+        colors = ButtonDefaults.buttonColors(_color),
         onClick = {
             Log.d("Juego","Click!"+ enum_color.txt+" numero: "+enum_color.ordinal)
             viewModel.correcionOpcionElegida(enum_color.ordinal)
