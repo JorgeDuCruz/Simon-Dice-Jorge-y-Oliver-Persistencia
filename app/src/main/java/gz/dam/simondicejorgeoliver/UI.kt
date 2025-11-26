@@ -47,6 +47,8 @@ fun Menu(viewModel: MyViewModel) {
     val recordRecogida by viewModel.record.collectAsState()
     val estado  by viewModel.estadoActual.collectAsState()
 
+    if (estado == Estados.INICIO) reproducirTono(549.25,500)
+
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
         Column (modifier = Modifier.padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
