@@ -19,6 +19,7 @@ class MyViewModel(): ViewModel(){
     var ronda = MutableStateFlow<Int?>(1)
     var botonPresionado = MutableStateFlow<Int?>(-1)
 
+
     var posicion = 0
 
     fun numeroRandom(){
@@ -46,6 +47,7 @@ class MyViewModel(): ViewModel(){
                 cambiarRonda()
             }
             puntuacion.value = puntuacion.value.plus(1)
+
             true
         }else{
             Log.d("ViewModel","ERROR, HAS PERDIDO")
@@ -66,6 +68,7 @@ class MyViewModel(): ViewModel(){
 
     fun continuarSecuencia(){
         botonPresionado.value=-1
+
     }
 
     fun cambiarRonda(){
