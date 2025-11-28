@@ -7,6 +7,10 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
+
 
 class MyViewModel(): ViewModel(){
     val estadoActual: MutableStateFlow<Estados> = MutableStateFlow(Estados.INICIO)
@@ -14,7 +18,12 @@ class MyViewModel(): ViewModel(){
 
     val puntuacion = MutableStateFlow<Int>(0)
 
-    val record = MutableStateFlow<Int>(0)
+    val record = MutableStateFlow<Int>(Datos.getRecordValor())
+    val recordData = MutableStateFlow<String>(Datos.getRecordFecha()) // Variable para guardar la fecha del record
+    val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss") //Formato de texto en el que se guarda la fecha
+    // https://developer.android.com/reference/java/time/format/DateTimeFormatter.html
+
+
 
     var ronda = MutableStateFlow<Int?>(1)
     var botonPresionado = MutableStateFlow<Int?>(-1)
@@ -80,13 +89,25 @@ class MyViewModel(): ViewModel(){
 
     fun derrota(){
         if (record.value < puntuacion.value){
-            record.value = puntuacion.value
+            actualizarRecord()
         }
         puntuacion.value = 0
         posicion=0
         ronda.value = 1
         estadoActual.value = Estados.INICIO
         Datos.numero = ArrayList()
+
+    }
+
+    /**
+     * Función que actualiza los datos del record de la viewModel y luego los manda actualizar en la clase Datos.
+     */
+    fun actualizarRecord(){
+        record.value = puntuacion.value
+        var fecha = LocalDateTime.now().format(formatter) // Variable para guardar la fecha actual con el formato definido arriba
+        // https://developer.android.com/reference/java/time/LocalDateTime.html
+        recordData.value = fecha
+        Datos.setRecord(record.value,recordData.value)
 
     }
 }
