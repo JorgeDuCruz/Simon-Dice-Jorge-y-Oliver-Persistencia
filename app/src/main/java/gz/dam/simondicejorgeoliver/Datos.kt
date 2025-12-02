@@ -5,30 +5,6 @@ import androidx.compose.ui.graphics.Color
 object Datos {
     var numero: ArrayList<Int> = ArrayList()
 
-    /**
-     * Guarda los datos del record en donde sean persistentes
-     * @param valorRecord puntuación del record
-     * @param fechaRecord fecha en la que fue hecho el record
-     */
-    fun setRecord(valorRecord: Int, fechaRecord: String){
-        //TODO guardar los record en algun lado
-    }
-
-    /**
-     * Función que devuelve la fecha del record desde donde se haya guardado
-     */
-    fun getRecordFecha() : String{
-        //TODO recojer los datos del record
-        return "Prueba"
-    }
-
-    /**
-     * Función que devuelve la puntuación del record
-     */
-    fun getRecordValor() : Int{
-        //TODO recojer los datos del record
-        return 0
-    }
 }
 
 enum class Colores(val color: Color, val txt: String, val nota: Double) {

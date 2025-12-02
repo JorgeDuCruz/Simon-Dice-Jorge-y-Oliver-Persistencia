@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import gz.dam.simondicejorgeoliver.Controller.ControllerKotlin
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -18,10 +19,13 @@ class MyViewModel(): ViewModel(){
 
     val puntuacion = MutableStateFlow<Int>(0)
 
-    val record = MutableStateFlow<Int>(Datos.getRecordValor())
-    val recordData = MutableStateFlow<String>(Datos.getRecordFecha()) // Variable para guardar la fecha del record
+    var _record: Record = ControllerKotlin.getRecord()
+    var _recordFecha: LocalDateTime = _record.recordFeha
     val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss") //Formato de texto en el que se guarda la fecha
     // https://developer.android.com/reference/java/time/format/DateTimeFormatter.html
+    val record = MutableStateFlow<Int>(_record.recordPun)
+    val recordData = MutableStateFlow<String>(_recordFecha.format(formatter)) // Variable para guardar la fecha del record
+
 
 
 
@@ -88,6 +92,7 @@ class MyViewModel(): ViewModel(){
     }
 
     fun derrota(){
+        record.value = _record.recordPun
         if (record.value < puntuacion.value){
             actualizarRecord()
         }
@@ -104,10 +109,8 @@ class MyViewModel(): ViewModel(){
      */
     fun actualizarRecord(){
         record.value = puntuacion.value
-        var fecha = LocalDateTime.now().format(formatter) // Variable para guardar la fecha actual con el formato definido arriba
-        // https://developer.android.com/reference/java/time/LocalDateTime.html
-        recordData.value = fecha
-        Datos.setRecord(record.value,recordData.value)
+
+        ControllerKotlin.setRecord(record.value, LocalDateTime.now())
 
     }
 }
