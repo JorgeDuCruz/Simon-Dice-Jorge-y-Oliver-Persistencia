@@ -1,10 +1,13 @@
 package gz.dam.simondicejorgeoliver
 
+import android.app.Application
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import gz.dam.simondicejorgeoliver.Controller.ControllerKotlin
+import gz.dam.simondicejorgeoliver.Controller.ControllerPreferences
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -13,13 +16,13 @@ import java.time.format.DateTimeFormatter
 
 
 
-class MyViewModel(): ViewModel(){
+class MyViewModel(application: Application): AndroidViewModel(application){
     val estadoActual: MutableStateFlow<Estados> = MutableStateFlow(Estados.INICIO)
     var numeroRandomGenerado = MutableStateFlow(0)
 
     val puntuacion = MutableStateFlow<Int>(0)
 
-    var _record: Record = ControllerKotlin.getRecord()
+    var _record: Record = ControllerPreferences.getRecord(getApplication())
     var _recordFecha: LocalDateTime = _record.recordFeha
     val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss") //Formato de texto en el que se guarda la fecha
     // https://developer.android.com/reference/java/time/format/DateTimeFormatter.html
@@ -110,7 +113,7 @@ class MyViewModel(): ViewModel(){
     fun actualizarRecord(){
         record.value = puntuacion.value
 
-        ControllerKotlin.setRecord(record.value, LocalDateTime.now())
+        ControllerPreferences.setRecord(record.value, LocalDateTime.now(),getApplication())
 
     }
 }
