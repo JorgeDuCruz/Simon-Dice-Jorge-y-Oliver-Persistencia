@@ -112,8 +112,9 @@ class MyViewModel(application: Application): AndroidViewModel(application){
      */
     fun actualizarRecord(){
         record.value = puntuacion.value
-
         ControllerPreferences.setRecord(record.value, LocalDateTime.now(),getApplication())
-
+        _record = ControllerPreferences.getRecord(getApplication())
+        _recordFecha = _record.recordFeha
+        recordData.value = _recordFecha.format(formatter)
     }
 }

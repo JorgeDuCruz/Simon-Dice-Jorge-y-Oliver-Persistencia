@@ -45,6 +45,7 @@ fun Menu(viewModel: MyViewModel) {
     val puntuacionRecogida by viewModel.puntuacion.collectAsState()
     val rondaRecogida by viewModel.ronda.collectAsState()
     val recordRecogida by viewModel.record.collectAsState()
+    val fechaRecogida by viewModel.recordData.collectAsState()
     val estado  by viewModel.estadoActual.collectAsState()
 
     if (estado == Estados.INICIO) reproducirTono(549.25,500)
@@ -52,7 +53,7 @@ fun Menu(viewModel: MyViewModel) {
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
         Column (modifier = Modifier.padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-            Puntuacion(puntuacionRecogida,rondaRecogida,recordRecogida, estado)
+            Puntuacion(puntuacionRecogida,rondaRecogida,recordRecogida,fechaRecogida, estado)
             Botonera(viewModel)
             Boton_inicio(viewModel)
         }
@@ -62,7 +63,7 @@ fun Menu(viewModel: MyViewModel) {
 }
 
 @Composable
-fun Puntuacion(puntuacion: Int?, ronda: Int?, record: Int, estado: Estados){
+fun Puntuacion(puntuacion: Int?, ronda: Int?, record: Int, fecha: String, estado: Estados){
     Text(
         text = "Estado: $estado"
     )
@@ -70,7 +71,7 @@ fun Puntuacion(puntuacion: Int?, ronda: Int?, record: Int, estado: Estados){
         text = "Ronda: $ronda",
     )
     Text(
-        text = "Puntuación: $puntuacion\n Record: $record",
+        text = "Puntuación: $puntuacion\n Record: $record Fecha: $fecha",
         modifier = Modifier.padding(top = 100.dp)
     )
 }
