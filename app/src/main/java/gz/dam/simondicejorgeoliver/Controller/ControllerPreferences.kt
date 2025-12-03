@@ -7,13 +7,13 @@ import gz.dam.simondicejorgeoliver.Record
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-object ControllerPreferences {
+object ControllerPreferences: HandlerRecord {
     private const val PREFS_NAME = "preferencias_app"
     private const val KEY_RECORD = "record"
     private const val KEY_RECORD_FECHA = "record_fecha"
     val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss") //Formato de texto en el que se guarda la fecha
 
-    fun setRecord(
+    override fun setRecord(
         valorRecord: Int,
         fechaRecord: LocalDateTime,
         context: Context
@@ -26,7 +26,7 @@ object ControllerPreferences {
         return 1
     }
 
-    fun getRecord(context: Context): Record {
+    override fun getRecord(context: Context): Record {
         val sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val pun = sharedPreferences.getInt(KEY_RECORD, 0)
         val fec = sharedPreferences.getString(KEY_RECORD_FECHA, "11/11/2011 11:11:11")
