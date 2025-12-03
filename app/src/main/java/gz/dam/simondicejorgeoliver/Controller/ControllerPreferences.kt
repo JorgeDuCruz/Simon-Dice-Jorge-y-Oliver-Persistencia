@@ -29,7 +29,7 @@ object ControllerPreferences {
     fun getRecord(context: Context): Record {
         val sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val pun = sharedPreferences.getInt(KEY_RECORD, 0)
-        val fec = sharedPreferences.getString(KEY_RECORD_FECHA, "")
+        val fec = sharedPreferences.getString(KEY_RECORD_FECHA, "11/11/2011 11:11:11")
         Log.d("PREFS","$fec")
         Record.recordFeha = LocalDateTime.parse(fec,formatter)
         Record.recordPun = pun
