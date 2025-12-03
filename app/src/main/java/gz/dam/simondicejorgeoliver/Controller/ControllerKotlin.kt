@@ -1,5 +1,6 @@
 package gz.dam.simondicejorgeoliver.Controller
 
+import android.content.Context
 import gz.dam.simondicejorgeoliver.Record
 import java.lang.Exception
 import java.time.LocalDateTime
@@ -7,8 +8,11 @@ import java.util.Date
 
 object ControllerKotlin : HandlerRecord{
 
-
-    override fun setRecord(valorRecord: Int, fechaRecord: LocalDateTime): Int {
+    override fun setRecord(
+        valorRecord: Int,
+        fechaRecord: LocalDateTime,
+        context: Context
+    ): Int {
         try {
             Record.recordFeha = fechaRecord
             Record.recordPun = valorRecord
@@ -18,7 +22,7 @@ object ControllerKotlin : HandlerRecord{
         }
     }
 
-    override fun getRecord(): Record {
+    override fun getRecord(context: Context): Record {
         return Record
     }
 
