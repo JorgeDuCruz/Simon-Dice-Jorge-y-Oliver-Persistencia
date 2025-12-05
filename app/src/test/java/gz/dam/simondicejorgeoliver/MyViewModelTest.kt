@@ -17,18 +17,35 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
-@ExperimentalCoroutinesApi
-@RunWith(RobolectricTestRunner::class)
+/**
+ * Tests para MyViewModel. Esta clase de test utiliza una combinación de herramientas:
+ * - Robolectric: para poder instanciar un `Application` y usar `SharedPreferences` en un test local.
+ * - kotlinx-coroutines-test: para probar la lógica que utiliza coroutines, como `viewModelScope`.
+ * - JUnit 4: como framework base para estructurar los tests.
+ *
+ * Referencias:
+ * - Probar coroutines en Kotlin: https://developer.android.com/kotlin/coroutines/test
+ * - Robolectric: http://robolectric.org/
+ * - AndroidX Test (ApplicationProvider): https://developer.android.com/reference/androidx/test/core/app/ApplicationProvider
+ */
+@ExperimentalCoroutinesApi // Habilita el uso de las APIs de test de coroutines.
+@RunWith(RobolectricTestRunner::class) // Usa el runner de Robolectric para simular un entorno Android.
 class MyViewModelTest {
 
     private lateinit var viewModel: MyViewModel
-    // Usamos UnconfinedTestDispatcher para ejecutar las coroutines de forma síncrona en los tests
+
+    // Usamos UnconfinedTestDispatcher para ejecutar las coroutines de forma síncrona en los tests,
+    // lo que simplifica las aserciones.
+    // https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-test/
     private val testDispatcher = UnconfinedTestDispatcher()
 
     @Before
     fun setUp() {
-        // Establecemos el dispatcher principal para los tests
+        // `Dispatchers.setMain` reemplaza el dispatcher principal por nuestro dispatcher de test.
+        // Es crucial para probar ViewModels que usan `viewModelScope`.
         Dispatchers.setMain(testDispatcher)
+
+        // `ApplicationProvider` nos da un contexto de aplicación válido en el entorno de Robolectric.
         val application = ApplicationProvider.getApplicationContext<Application>()
 
         // Limpiamos las SharedPreferences y los datos del juego antes de cada test
@@ -42,10 +59,12 @@ class MyViewModelTest {
 
     @After
     fun tearDown() {
-        // Restauramos el dispatcher principal
+        // `Dispatchers.resetMain()` restaura el dispatcher principal a su estado original.
         Dispatchers.resetMain()
     }
 
+    // `runTest` es un constructor de coroutines para tests. Asegura que las coroutines
+    // que se lancen dentro se completen antes de que el test termine.
     @Test
     fun `numeroRandom debe cambiar el estado a GENERANDO`() = runTest {
         // Cuando

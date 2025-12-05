@@ -17,10 +17,20 @@ import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.ArgumentMatchers.anyString
 import java.time.temporal.ChronoUnit
 
-@RunWith(MockitoJUnitRunner::class)
+/**
+ * Los tests unitarios para ControllerPreferences usan Mockito para simular (mockear) las dependencias
+ * del framework de Android, como `Context` y `SharedPreferences`.
+ * Esto nos permite probar la lógica de la clase de forma aislada, sin necesitar un dispositivo o emulador.
+ *
+ * Referencias:
+ * - Mockito: https://site.mockito.org/
+ * - Mockito-Kotlin: https://github.com/mockito/mockito-kotlin
+ * - JUnit 4: https://junit.org/junit4/
+ */
+@RunWith(MockitoJUnitRunner::class) // Runner de Mockito para inicializar los mocks anotados con @Mock.
 class ControllerPreferencesTest {
 
-    @Mock
+    @Mock // Crea un objeto simulado (mock) de la clase.
     private lateinit var mockContext: Context
 
     @Mock
@@ -29,8 +39,10 @@ class ControllerPreferencesTest {
     @Mock
     private lateinit var mockEditor: SharedPreferences.Editor
 
-    @Before
+    @Before // Este método se ejecuta antes de cada test.
     fun setUp() {
+        // `when` define el comportamiento que tendrán los mocks cuando se llame a sus métodos.
+        // Aquí, configuramos que cuando se pida SharedPreferences, se devuelva nuestro mock.
         `when`(mockContext.getSharedPreferences(anyString(), anyInt()))
             .thenReturn(mockSharedPreferences)
         `when`(mockSharedPreferences.edit()).thenReturn(mockEditor)
@@ -40,6 +52,8 @@ class ControllerPreferencesTest {
     fun testSetAndGetRecord() {
         // Given
         val testRecordValue = 100
+        // Truncamos los nanosegundos para evitar fallos de precisión en la comparación.
+        // https://developer.android.com/reference/java/time/LocalDateTime
         val testDate = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)
         val formattedDate = testDate.format(ControllerPreferences.formatter)
 
@@ -54,10 +68,12 @@ class ControllerPreferencesTest {
         val resultRecord = ControllerPreferences.getRecord(mockContext)
 
         // Then
+        // `verify` comprueba que los métodos de los mocks se han llamado con los argumentos esperados.
         verify(mockEditor).putInt("record", testRecordValue)
         verify(mockEditor).putString("record_fecha", formattedDate)
         verify(mockEditor).apply()
 
+        // `assertEquals` comprueba que el resultado es el esperado.
         assertEquals(testRecordValue, resultRecord.recordPun)
         assertEquals(testDate, resultRecord.recordFeha)
     }
