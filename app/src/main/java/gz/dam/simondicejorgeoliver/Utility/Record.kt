@@ -1,7 +1,6 @@
-package gz.dam.simondicejorgeoliver
+package gz.dam.simondicejorgeoliver.Utility
 
 import java.time.LocalDateTime
-import java.util.Date
 
 object Record {
     var recordPun: Int = 0

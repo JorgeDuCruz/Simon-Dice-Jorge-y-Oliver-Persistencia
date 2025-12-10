@@ -2,6 +2,9 @@ package gz.dam.simondicejorgeoliver
 
 import android.app.Application
 import androidx.test.core.app.ApplicationProvider
+import gz.dam.simondicejorgeoliver.Main.Datos
+import gz.dam.simondicejorgeoliver.Main.Estados
+import gz.dam.simondicejorgeoliver.Main.MyViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher

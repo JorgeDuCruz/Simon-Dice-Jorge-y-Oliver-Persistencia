@@ -1,7 +1,7 @@
 package gz.dam.simondicejorgeoliver.Controller
 
 import android.content.Context
-import gz.dam.simondicejorgeoliver.Record
+import gz.dam.simondicejorgeoliver.Utility.Record
 import java.lang.Exception
 import java.time.LocalDateTime
 import java.util.Date

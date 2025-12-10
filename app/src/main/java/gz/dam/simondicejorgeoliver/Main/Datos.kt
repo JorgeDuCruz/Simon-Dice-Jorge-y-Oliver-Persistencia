@@ -1,4 +1,4 @@
-package gz.dam.simondicejorgeoliver
+package gz.dam.simondicejorgeoliver.Main
 
 import androidx.compose.ui.graphics.Color
 

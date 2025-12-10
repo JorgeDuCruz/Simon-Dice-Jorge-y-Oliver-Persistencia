@@ -1,13 +1,11 @@
-package gz.dam.simondicejorgeoliver
+package gz.dam.simondicejorgeoliver.Main
 
 import android.app.Application
 import android.util.Log
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import gz.dam.simondicejorgeoliver.Controller.ControllerKotlin
 import gz.dam.simondicejorgeoliver.Controller.ControllerPreferences
+import gz.dam.simondicejorgeoliver.Utility.Record
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

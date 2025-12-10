@@ -1,4 +1,4 @@
-package gz.dam.simondicejorgeoliver
+package gz.dam.simondicejorgeoliver.Main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
