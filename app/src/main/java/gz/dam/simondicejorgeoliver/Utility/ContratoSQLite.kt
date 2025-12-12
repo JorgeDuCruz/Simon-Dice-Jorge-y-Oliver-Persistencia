@@ -20,7 +20,7 @@ object ContratoSQLite {
         "CREATE TABLE ${FeedEntry.TABLE_NAME} (" +
                 "${BaseColumns._ID} INTEGER PRIMARY KEY," +
                 "${FeedEntry.COLUMN_NAME_PUNTUACION} INTEGER," +
-                "${FeedEntry.COLUMN_NAME_FECHA} DATE)"
+                "${FeedEntry.COLUMN_NAME_FECHA} TEXT)"
 
 
     private const val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS ${FeedEntry.TABLE_NAME}"

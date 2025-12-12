@@ -4,7 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import gz.dam.simondicejorgeoliver.Controller.ControllerPreferences
+import gz.dam.simondicejorgeoliver.Controller.ControllerSQLite
 import gz.dam.simondicejorgeoliver.Utility.Record
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,12 +15,13 @@ import java.time.format.DateTimeFormatter
 
 
 class MyViewModel(application: Application): AndroidViewModel(application){
+    val controllerSQLite = ControllerSQLite(application)
     val estadoActual: MutableStateFlow<Estados> = MutableStateFlow(Estados.INICIO)
     var numeroRandomGenerado = MutableStateFlow(0)
 
     val puntuacion = MutableStateFlow<Int>(0)
 
-    var _record: Record = ControllerPreferences.getRecord(getApplication())
+    var _record: Record = controllerSQLite.getRecord(getApplication())
     var _recordFecha: LocalDateTime = _record.recordFeha
     val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss") //Formato de texto en el que se guarda la fecha
     // https://developer.android.com/reference/java/time/format/DateTimeFormatter.html
@@ -110,8 +111,8 @@ class MyViewModel(application: Application): AndroidViewModel(application){
      */
     fun actualizarRecord(){
         record.value = puntuacion.value
-        ControllerPreferences.setRecord(record.value, LocalDateTime.now(),getApplication())
-        _record = ControllerPreferences.getRecord(getApplication())
+        controllerSQLite.setRecord(record.value, LocalDateTime.now(),getApplication())
+        _record = controllerSQLite.getRecord(getApplication())
         _recordFecha = _record.recordFeha
         recordData.value = _recordFecha.format(formatter)
     }

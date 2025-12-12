@@ -60,10 +60,10 @@ class ControllerSQLite(context: Context) : HandlerRecord{
 
 
         var puntuacion = 0
-        var fecha = ""
+        var fecha = "11/11/2011 11:11:11"
 
         with(cursor) {
-            while (moveToNext()) {
+            if (moveToNext()) {
                 puntuacion = getInt(getColumnIndexOrThrow(FeedEntry.COLUMN_NAME_PUNTUACION))
                 Log.d(TAG,"Valor = $puntuacion")
                 fecha = getString(getColumnIndexOrThrow(FeedEntry.COLUMN_NAME_FECHA))
