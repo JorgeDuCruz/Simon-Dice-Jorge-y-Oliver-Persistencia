@@ -3,6 +3,7 @@ package gz.dam.simondicejorgeoliver.Main
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.application
 import androidx.lifecycle.viewModelScope
 import gz.dam.simondicejorgeoliver.Controller.ControllerSQLite
 import gz.dam.simondicejorgeoliver.Utility.Record
@@ -94,6 +95,7 @@ class MyViewModel(application: Application): AndroidViewModel(application){
     }
 
     fun derrota(){
+        _record = controllerSQLite.getRecord(application)
         record.value = _record.recordPun
         if (record.value < puntuacion.value){
             actualizarRecord()
