@@ -11,12 +11,12 @@ import java.lang.Exception
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class Controller(applicationContext: Application) : HandlerRecord {
+class ControllerRoomSQLite(applicationContext: Application) : HandlerRecord {
     val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss") //Formato de texto en el que se guarda la fecha
 
     val db = Room.databaseBuilder(
         applicationContext,
-        AppDatabase::class.java, "database-name"
+        AppDatabase::class.java, "RoomRecord"
     ).allowMainThreadQueries().build()
     val recordDao = db.recordDao()
 
@@ -43,9 +43,23 @@ class Controller(applicationContext: Application) : HandlerRecord {
 
     override fun getRecord(context: Context): Record {
         val record = recordDao.getMaxRecord()
-        val fecha = LocalDateTime.parse(record.fecha,formatter)
+        val fecha: LocalDateTime
+        val puntuacion: Int
 
-        Record.recordPun = record.puntuacion
+        if (record.fecha != null) {
+            fecha = LocalDateTime.parse(record.fecha, formatter)
+        }
+        else{
+            fecha = LocalDateTime.parse("11/11/2011 11:11:11",formatter)
+        }
+
+        if (record.puntuacion != null){
+            puntuacion = record.puntuacion
+        }
+        else{
+            puntuacion = 0
+        }
+        Record.recordPun = puntuacion
         Record.recordFeha = fecha
         return Record
     }

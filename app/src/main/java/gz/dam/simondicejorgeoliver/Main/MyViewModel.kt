@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.application
 import androidx.lifecycle.viewModelScope
+import gz.dam.simondicejorgeoliver.Controller.ControllerRoomSQLite
 import gz.dam.simondicejorgeoliver.Controller.ControllerSQLite
 import gz.dam.simondicejorgeoliver.Utility.Record
 import kotlinx.coroutines.delay
@@ -16,7 +17,7 @@ import java.time.format.DateTimeFormatter
 
 
 class MyViewModel(application: Application): AndroidViewModel(application){
-    val controllerSQLite = ControllerSQLite(application)
+    val controllerSQLite = ControllerRoomSQLite(application)
     val estadoActual: MutableStateFlow<Estados> = MutableStateFlow(Estados.INICIO)
     var numeroRandomGenerado = MutableStateFlow(0)
 
