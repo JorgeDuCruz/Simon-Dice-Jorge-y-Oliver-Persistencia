@@ -16,7 +16,7 @@ interface RecordDao {
     fun loadAllByIds(RecordIds: IntArray): List<RecordEntity>
 
     @Query("SELECT Puntuación, Fecha FROM RecordEntity ORDER BY Puntuación DESC LIMIT 1")
-    fun getMaxRecord(): RecordEntity
+    fun getMaxRecord(): RecordEntity?
 
     @Insert
     fun insertAll(vararg Records: RecordEntity)

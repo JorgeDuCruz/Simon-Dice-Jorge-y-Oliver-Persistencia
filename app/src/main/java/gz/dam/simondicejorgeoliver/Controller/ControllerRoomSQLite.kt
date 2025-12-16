@@ -43,20 +43,17 @@ class ControllerRoomSQLite(applicationContext: Application) : HandlerRecord {
 
     override fun getRecord(context: Context): Record {
         val record = recordDao.getMaxRecord()
+
         val fecha: LocalDateTime
         val puntuacion: Int
 
-        if (record.fecha != null) {
+        if (record != null){
             fecha = LocalDateTime.parse(record.fecha, formatter)
+            if (record.puntuacion != null) puntuacion = record.puntuacion
+            else puntuacion = 0
         }
         else{
             fecha = LocalDateTime.parse("11/11/2011 11:11:11",formatter)
-        }
-
-        if (record.puntuacion != null){
-            puntuacion = record.puntuacion
-        }
-        else{
             puntuacion = 0
         }
         Record.recordPun = puntuacion
