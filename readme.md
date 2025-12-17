@@ -73,3 +73,36 @@ El flujo principal del juego se puede representar con el siguiente diagrama de e
     Adivinando --> Generando: El jugador completa la secuencia correctamente
     Adivinando --> Inicio: El jugador comete un error
 ```
+
+## Room
+
+Para la persistencia de datos en la aplicación, se ha implementado la biblioteca **Room**, que proporciona una capa de abstracción sobre SQLite para permitir un acceso más robusto a la base de datos, aprovechando al mismo tiempo todo el potencial de SQLite.
+
+La implementación se estructura en los siguientes ficheros clave:
+
+### 1. `RecordEntity.kt` - La Entidad
+
+Esta clase de datos define la tabla que almacenará los récords en la base de datos.
+-   `@Entity`: Marca la clase para que Room la reconozca como una tabla.
+-   `@PrimaryKey(autoGenerate = true)`: Define el `id` como la clave primaria, que se generará automáticamente con cada nuevo registro.
+-   `@ColumnInfo`: Permite especificar nombres personalizados para las columnas, como "Puntuación" y "Fecha".
+
+### 2. `RecordDao.kt` - El DAO (Data Access Object)
+
+Esta interfaz define cómo se accede a los datos de la tabla `RecordEntity`.
+-   `@Dao`: Identifica la interfaz como un objeto de acceso a datos para Room.
+-   `@Query`: Permite escribir consultas SQL personalizadas. En este caso, se usa una consulta clave para obtener el récord con la puntuación más alta: `SELECT Puntuación, Fecha FROM RecordEntity ORDER BY Puntuación DESC LIMIT 1`.
+-   `@Insert` y `@Delete`: Definen métodos sencillos para insertar y eliminar récords.
+
+### 3. `AppDatabase.kt` - La Base de Datos
+
+Esta clase abstracta representa la base de datos principal de la aplicación.
+-   `@Database`: Anotación que define la clase como la base de datos de Room. Se especifican las entidades (tablas) que contiene (`RecordEntity`) y la versión de la base de datos.
+-   Hereda de `RoomDatabase`.
+-   Declara un método abstracto que devuelve una instancia del `RecordDao`, permitiendo que el resto de la aplicación acceda a los métodos del DAO.
+
+### 4. `ControllerRoomSQLite.kt` - El Controlador
+
+Esta es la clase que une todas las piezas y gestiona la lógica de la base de datos.
+-   **Inicializa la base de datos**: Usando `Room.databaseBuilder`, crea una instancia única de `AppDatabase`. Es importante destacar que se ha usado `.allowMainThreadQueries()`, una opción que permite realizar consultas en el hilo principal. Aunque es útil para simplificar el código en proyectos pequeños, en aplicaciones más grandes se recomienda realizar las operaciones de base de datos en hilos secundarios (usando, por ejemplo, coroutines) para no bloquear la interfaz de usuario.
+-   **Implementa la interfaz `HandlerRecord`**: Proporciona los métodos `setRecord` y `getRecord` que se comunican con el DAO para insertar y obtener los récords, gestionando también la conversión entre el `String` de la base de datos y los objetos `LocalDateTime`.
