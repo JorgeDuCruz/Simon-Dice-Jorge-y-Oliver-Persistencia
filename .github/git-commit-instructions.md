@@ -1,3 +1,3 @@
 - Fai as mensaxes en "galego".
-- Escribe sempre un mensaxe curto e logo uma descripción máis extensa.
+- Escribe sempre un mensaxe curto e logo unha descripción máis extensa separada por un salto de linea.
 - Númera los commits de forma secuencial (1, 2, 3, ...).
