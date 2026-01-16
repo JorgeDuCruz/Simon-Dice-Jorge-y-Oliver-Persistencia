@@ -1,3 +1,4 @@
 - Fai as mensaxes en "galego".
 - Escribe sempre un mensaxe curto e logo unha descripción máis extensa separada por un salto de linea.
 - Númera los commits de forma secuencial (1, 2, 3, ...).
+- Los numeros que tienen que ser el numero de commits de la rama actual desde el momento en que se crea la rama, sin contanr los commits de las ramas base.
