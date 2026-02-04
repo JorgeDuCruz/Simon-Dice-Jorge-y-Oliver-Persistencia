@@ -25,6 +25,7 @@ class MyViewModel(application: Application): AndroidViewModel(application){
 
     var _record: Record = controllerSQLite.getRecord(getApplication())
     var _recordFecha: LocalDateTime = _record.recordFeha
+    var nome = MutableStateFlow<String>(_record.nombre)
     val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss") //Formato de texto en el que se guarda la fecha
     // https://developer.android.com/reference/java/time/format/DateTimeFormatter.html
     val record = MutableStateFlow<Int>(_record.recordPun)
@@ -118,5 +119,6 @@ class MyViewModel(application: Application): AndroidViewModel(application){
         _record = controllerSQLite.getRecord(getApplication())
         _recordFecha = _record.recordFeha
         recordData.value = _recordFecha.format(formatter)
+        nome.value = _record.nombre
     }
 }

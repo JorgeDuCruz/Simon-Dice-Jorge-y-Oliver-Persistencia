@@ -15,7 +15,7 @@ interface RecordDao {
     @Query("SELECT * FROM RecordEntity WHERE id IN (:RecordIds)")
     fun loadAllByIds(RecordIds: IntArray): List<RecordEntity>
 
-    @Query("SELECT Puntuación, Fecha FROM RecordEntity ORDER BY Puntuación DESC LIMIT 1")
+    @Query("SELECT Puntuación, Fecha, Nombre FROM RecordEntity ORDER BY Puntuación DESC LIMIT 1")
     fun getMaxRecord(): RecordEntity?
 
     @Insert
