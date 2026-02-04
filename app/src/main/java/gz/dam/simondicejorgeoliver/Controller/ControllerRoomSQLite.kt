@@ -31,7 +31,8 @@ class ControllerRoomSQLite(applicationContext: Application) : HandlerRecord {
             val record = RecordEntity(
                 id = null,
                 puntuacion = valorRecord,
-                fecha = fechaRecord.format(formatter)
+                fecha = fechaRecord.format(formatter),
+                nombre = "Juaco"
             )
             recordDao.insertAll(record)
             return 1
@@ -46,18 +47,23 @@ class ControllerRoomSQLite(applicationContext: Application) : HandlerRecord {
 
         val fecha: LocalDateTime
         val puntuacion: Int
+        val nombre : String
 
         if (record != null){
             fecha = LocalDateTime.parse(record.fecha, formatter)
             if (record.puntuacion != null) puntuacion = record.puntuacion
             else puntuacion = 0
+            if (record.nombre != null) nombre = record.nombre
+            else nombre = "Jośe"
         }
         else{
             fecha = LocalDateTime.parse("11/11/2011 11:11:11",formatter)
             puntuacion = 0
+            nombre = "Jośe"
         }
         Record.recordPun = puntuacion
         Record.recordFeha = fecha
+        Record.nombre = nombre
         return Record
     }
 
