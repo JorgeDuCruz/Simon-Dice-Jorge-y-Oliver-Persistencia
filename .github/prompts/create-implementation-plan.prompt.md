@@ -11,6 +11,7 @@ tools: ['changes', 'search/codebase', 'edit/editFiles', 'extensions', 'fetch', '
 Tu objetivo es crear un nuevo archivo de plan de implementación para `${input:PlanPurpose}`. Tu salida debe ser legible por máquinas, determinista y estructurada para la ejecución autónoma por parte de otros sistemas de IA o humanos.
 Usa el idioma "Español" para redactar el plan.
 El plan debe seguir la estrucutura del proyecto actula de MVVM con Kotlin y Jetpack Compose para Android.
+Siempre se asumira que el plan implica modificar el proyecto manteniendo las cualidades anteriores, siempre añadiendo o modificando levemente, nunca eliminando cosas a menos que se diga explicitamente
 
 ## Contexto de Ejecución
 
@@ -63,6 +64,7 @@ Todos los planes de implementación deben adherirse estrictamente a la siguiente
 - Todos los prefijos de identificadores deben seguir el formato especificado.
 - Las tablas deben incluir todas las columnas requeridas.
 - No debe quedar ningún texto de marcador de posición (placeholder) en la salida final.
+- Las tablas de tareas deben tener entre todas las fases un máximo de 20 Tareas en total
 
 ## Estado (Status)
 
