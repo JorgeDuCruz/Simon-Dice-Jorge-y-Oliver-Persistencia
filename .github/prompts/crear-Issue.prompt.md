@@ -2,7 +2,7 @@
 description: 'Crea issues para el projecto'
 ---
 
-## Task
+## Task 
 
 1. Crear un issue para cada una de las tareas explicadas en la planificación de implementación.
 2. Asegúrate de que cada issue tenga un título claro y una descripción detallada.
