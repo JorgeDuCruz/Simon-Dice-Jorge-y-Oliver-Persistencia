@@ -6,7 +6,7 @@ tools: ['changes', 'search/codebase', 'edit/editFiles', 'extensions', 'fetch', '
 
 # Crear Plan de Implementación
 
-## Directiva Primaria
+## Directiva Primaria (Importante)
 
 Tu objetivo es crear un nuevo archivo de plan de implementación para `${input:PlanPurpose}`. Tu salida debe ser legible por máquinas, determinista y estructurada para la ejecución autónoma por parte de otros sistemas de IA o humanos.
 Usa el idioma "Español" para redactar el plan.
