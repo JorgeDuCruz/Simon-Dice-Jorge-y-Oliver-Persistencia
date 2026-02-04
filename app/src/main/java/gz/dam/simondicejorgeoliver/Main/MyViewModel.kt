@@ -97,9 +97,9 @@ class MyViewModel(application: Application): AndroidViewModel(application){
     fun derrota(){
         _record = controllerSQLite.getRecord(application)
         record.value = _record.recordPun
-        if (record.value < puntuacion.value){
-            actualizarRecord()
-        }
+
+        actualizarRecord()
+
         puntuacion.value = 0
         posicion=0
         ronda.value = 1
